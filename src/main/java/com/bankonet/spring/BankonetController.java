@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -58,14 +59,44 @@ public class BankonetController {
 	@RequestMapping(value="/saveClient", method = RequestMethod.POST)
 	public String saveClient(@Valid Client c, BindingResult bindingResult, Model  model) {
 		
-	
-			
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("clients",  bankonetmetier.listClients());
 			return  "clientsview"; 
 		}
-		return null;
+		
+		System.out.println("Tentative d'une possible sauvegarde/modification :");
+		
+		try{
+			if(c.getId()!=0){
+				//update et edition du client.
+				bankonetmetier.updateClient(c);
+			}else{
+				bankonetmetier.addClient(c);
+				System.out.println("Client sauvegardé");
+			}
+			
+		}catch(Exception e){
+			System.out.println("Sauvegarde impossible.");
+			e.printStackTrace();
+		}
+		model.addAttribute("clients", bankonetmetier.listClients());
+		return "clientsview";
 
 	
+	}
+	
+	/**
+	 * 
+	 * @param id
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/editclient/{id}")
+	public String editCLient(@PathVariable("id") int id,Model model){
+		
+		model.addAttribute("client",bankonetmetier.editClient(id));
+		model.addAttribute("clients", bankonetmetier.listClients());
+		return "clientsview/saveClient";
+		
 	}
 }

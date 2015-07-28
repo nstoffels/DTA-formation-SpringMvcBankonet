@@ -11,12 +11,12 @@
 <body>
 	<h2>Bankonet Spring MVC - Affichages des clients</h2>
 	<table border="1">
-		<th>
+		<tr>
 		<td>id</td>
 		<td>Prenom</td>
 		<td>Nom de famille</td>
 		<td>login</td>
-		</th>
+		</tr>
 
 		<c:forEach items="${clients}" var="cl">
 			<tr>
@@ -34,7 +34,7 @@
 		<table>
 			<tr>
 				<td>ID client:<f:hidden path="id" /></td>
-				<td>${clients.id}</td>
+				<td>${client.id}</td>
 			</tr>
 			<tr>
 				<td><form:label path="prenom">prenom :</form:label></td>
@@ -61,6 +61,7 @@
 				<td><form:errors path="motDePasse" /></td>
 			</tr>
 		</table>
+		<button value="submit"> valider </button>
 	</form:form>
 
 </body>

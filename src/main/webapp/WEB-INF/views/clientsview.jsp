@@ -11,12 +11,13 @@
 <body>
 	<h2>Bankonet Spring MVC - Affichages des clients</h2>
 	<table border="1">
-		<th>
+		<tr>
 		<td>id</td>
 		<td>Prenom</td>
 		<td>Nom de famille</td>
 		<td>login</td>
-		</th>
+		<td>Mot de passe</td>
+		</tr>
 
 		<c:forEach items="${clients}" var="cl">
 			<tr>
@@ -24,13 +25,16 @@
 				<td>${cl.prenom}</td>
 				<td>${cl.nom}</td>
 				<td>${cl.login}</td>
+				<td>(confidentiel)</td>
+				<td><a href="editclient/${cl.id}">éditer le client</a></td>
+				<td><a href="supprimerclient/${cl.id}">supprimer le client</a></td>
 			</tr>
+			
 		</c:forEach>
 	</table>
 
 	<h2>Formulaire nouveaux clients</h2>
-	<form:form action="/BankonetSpringMVC/saveClient" modelAttribute="client">
-
+	<form:form modelAttribute="client">
 		<table>
 			<tr>
 				<td>ID client:<f:hidden path="id" /></td>
@@ -61,6 +65,7 @@
 				<td><form:errors path="motDePasse" /></td>
 			</tr>
 		</table>
+		<button value="submit"> valider </button>
 	</form:form>
 
 </body>
