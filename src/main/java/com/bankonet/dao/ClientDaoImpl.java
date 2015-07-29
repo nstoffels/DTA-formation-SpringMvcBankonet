@@ -3,16 +3,13 @@
  */
 package com.bankonet.dao;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,6 +47,7 @@ public class ClientDaoImpl implements IClientDao {
 	/* (non-Javadoc)
 	 * @see com.bankonet.dao.IClientDao#listClients()
 	 */
+	@Transactional(propagation=Propagation.MANDATORY)
 	public List<Client> listClients() {
 		// TODO Auto-generated method stub
 		
