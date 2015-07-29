@@ -3,8 +3,14 @@
  */
 package com.bankonet.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -18,11 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @DiscriminatorValue("C")
 public class Client extends Personne {
 
-	/**
-	 * @param id
-	 * @param nom
-	 * @param prenom
-	 */
+	
 	
 
 	/**
@@ -34,6 +36,10 @@ public class Client extends Personne {
 	@NotNull
 	@Size(min=5, max=50)
 	String motDePasse;
+	@OneToMany
+	private List<CompteCourant> compteCourantList;
+	@OneToMany
+	private List<CompteEpargne> compteEpargneList;
 
 	@Autowired
 	private Adresse adresse;
@@ -75,6 +81,8 @@ public class Client extends Personne {
 		super();
 		this.adresse = adresse;
 	}
+	
+	
 
 	/*
 	 * Méthodes
@@ -86,6 +94,45 @@ public class Client extends Personne {
 	public String toString() {
 		// TODO Auto-generated method stub
 		return "id : "+this.getId() + " ; " +" nom : "+this.getNom()+" ; "+ " Prenom : "+ this.getPrenom()+" ; "+" adresse : "+this.getAdresse()+" ; "+" a comme login :" + this.getLogin() ;
+	}
+	
+	/**
+	 * Retourne la liste des comptes courants du client (de taille 0 si pas de comptes courants).
+	 * 
+	 *
+	 * @return List
+	 */
+	
+	public List<CompteCourant> getComptesCourants() {
+		return Collections.unmodifiableList(compteCourantList);
+	}
+	/**
+	 * Retourne la liste des comptes d'epargne du client sous forme d'une ArrayList (de taille 0 si pas de compte epargne).
+	 * 
+	 * @return List
+	 */
+
+	public List<CompteEpargne> getComptesEpargne() {
+		return Collections.unmodifiableList(compteEpargneList);
+	}
+	
+	public List<Compte> getComptes() {
+	    List<Compte> compteList = new ArrayList<Compte>();
+	    compteList.addAll(compteCourantList);
+	    compteList.addAll(compteEpargneList);
+	    return Collections.unmodifiableList(compteList);
+
+	}
+
+	public Compte getCompte(int compteId) {
+	    List<Compte> compteList = this.getComptes();
+	    Iterator<Compte> compteIte = compteList.iterator();
+	    while (compteIte.hasNext()) {
+            Compte compte = compteIte.next();
+            if (compteId == compte.getIdentifiant())
+                return compte;
+        }
+	    return null; 
 	}
 
 	/*
@@ -135,4 +182,34 @@ public class Client extends Personne {
 	public void setMotDePasse(String motDePasse) {
 		this.motDePasse = motDePasse;
 	}
+
+	/**
+	 * @return the compteCourantList
+	 */
+	public List<CompteCourant> getCompteCourantList() {
+		return compteCourantList;
+	}
+
+	/**
+	 * @param compteCourantList the compteCourantList to set
+	 */
+	public void setCompteCourantList(List<CompteCourant> compteCourantList) {
+		this.compteCourantList = compteCourantList;
+	}
+
+	/**
+	 * @return the compteEpargneList
+	 */
+	public List<CompteEpargne> getCompteEpargneList() {
+		return compteEpargneList;
+	}
+
+	/**
+	 * @param compteEpargneList the compteEpargneList to set
+	 */
+	public void setCompteEpargneList(List<CompteEpargne> compteEpargneList) {
+		this.compteEpargneList = compteEpargneList;
+	}
+	
+	
 }

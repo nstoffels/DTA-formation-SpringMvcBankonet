@@ -1,9 +1,13 @@
 package com.bankonet.model;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 
 /**
- * @author Neobject
  */
+@Entity
+@DiscriminatorValue("Ce")
 public class CompteEpargne extends Compte {
     private float tauxInteret;
 

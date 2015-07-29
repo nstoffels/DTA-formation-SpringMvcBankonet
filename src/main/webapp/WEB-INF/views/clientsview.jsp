@@ -34,6 +34,8 @@
 				<td><spring:message code="confidentiel"/></td>
 				<td><a href="/BankonetSpringMVC/editclient/${cl.id}"><spring:message code="editerclient"/></a></td>
 				<td><a href="/BankonetSpringMVC/deleteclient/${cl.id}"><spring:message code="supprimerclient"/></a></td>
+<%-- 				<td><a href="/BankonetSpringMVC/comptescourants/${cl.id}">Gérer les Comptes courants</a></td> --%>
+<%-- 				<td><a href="/BankonetSpringMVC/comptesepargnes/${cl.id}">Gérer les Comptes épargnes</a></td> --%>
 			</tr>
 			
 		</c:forEach>

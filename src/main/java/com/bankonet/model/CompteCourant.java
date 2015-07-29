@@ -1,9 +1,13 @@
 package com.bankonet.model;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
 
 /**
- * @author Neobject
  */
+@Entity
+@DiscriminatorValue("Cp")
 public class CompteCourant extends Compte {
     private float decouvertAutorise;
 

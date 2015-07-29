@@ -1,12 +1,23 @@
 package com.bankonet.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
 
 /**
  * @author Neobject
  */
+@Entity
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public abstract class Compte {
-	private String libelle;
+	@Id
+	@GeneratedValue
 	private int identifiant;
+	
+	private String libelle;
 	protected float solde;
 
 	/**
