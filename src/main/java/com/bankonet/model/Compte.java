@@ -30,6 +30,11 @@ public abstract class Compte {
 		this.solde = solde;
 
 	}
+	Compte() {
+
+	}
+	
+	
 	public abstract boolean creditAutorise(float montant) throws BankonetException;
 
 

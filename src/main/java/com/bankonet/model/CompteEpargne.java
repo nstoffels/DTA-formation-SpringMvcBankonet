@@ -13,6 +13,12 @@ public class CompteEpargne extends Compte {
 
     private float plafond;
 
+    
+    /*
+     * 
+     * Constructeur
+     * 
+     */
     /**
      * @param id
      * @param libelle
@@ -26,8 +32,28 @@ public class CompteEpargne extends Compte {
         this.tauxInteret = tauxInteret;
         this.plafond = plafond;
     }
-
+    
     /**
+	 * @param id
+	 * @param libelle
+	 * @param solde
+	 */
+	public CompteEpargne(int id, String libelle, float solde) {
+		super(id, libelle, solde);
+		// TODO Auto-generated constructor stub
+	}
+
+	public CompteEpargne(){
+		
+	}
+
+	
+	/*
+	 * 
+	 * Méthodes
+	 * 
+	 */
+	/**
      * Le montant ne doit pas etre superieur au plafond de credit autorise
      * en une fois
      */
@@ -48,7 +74,14 @@ public class CompteEpargne extends Compte {
     }
 
 
-
+    
+    
+    /*
+     * 
+     * 
+     * Getter et setter
+     * 
+     */
     /**
      * Accesseur de la propriete <code>plafond</code>.
      * 
@@ -86,4 +119,6 @@ public class CompteEpargne extends Compte {
     public void setTauxInteret(float newTauxInteret) {
         tauxInteret = newTauxInteret;
     }
+    
+    
 }

@@ -106,7 +106,7 @@ public class ClientDaoImpl implements IClientDao {
 		
 		Query req=em.createQuery("select c from Client c where c.nom like :x or c.prenom like :x");
 		req.setParameter("x", "%"+motCle+"%");
-		System.out.println("Le client "+req.getResultList()+" a Ã©tÃ© trouvÃ©");
+		System.out.println("Le client "+req.getResultList()+" a été trouvé");
 		return req.getResultList();
 	}
 
