@@ -58,21 +58,23 @@ public class BankonetController {
 	 */
 	@RequestMapping(value="/saveClient", method = RequestMethod.POST)
 	public String saveClient(@Valid Client c, BindingResult bindingResult, Model  model) {
-		
+
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("clients",  bankonetmetier.listClients());
 			return  "clientsview"; 
 		}
 		
 		System.out.println("Tentative d'une possible sauvegarde/modification :");
-		
+		System.out.println("***************************"+c.getId()+"******************************************");
 		try{
 			if(c.getId()!=0){
 				//update et edition du client.
 				bankonetmetier.updateClient(c);
+				model.addAttribute("info", "c'est édité"+c.getId());
 			}else{
 				bankonetmetier.addClient(c);
 				System.out.println("Client sauvegardé");
+				model.addAttribute("info", "c'est ajouté : "+c.getId());
 			}
 			
 		}catch(Exception e){
@@ -91,12 +93,25 @@ public class BankonetController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/editclient/{id}")
+	@RequestMapping(value="/editclient/{id}", method = RequestMethod.GET)
 	public String editCLient(@PathVariable("id") int id,Model model){
 		
 		model.addAttribute("client",bankonetmetier.editClient(id));
 		model.addAttribute("clients", bankonetmetier.listClients());
-		return "clientsview/saveClient";
+		System.out.println("////////////////////////////////////////"+id+"///////////////////////////////////");
+		return "clientsview";
 		
 	}
+	
+	@RequestMapping(value="/deleteclient/{id}", method = RequestMethod.GET)
+	public String deleteClient(@PathVariable("id") int id,Model model){
+		
+		bankonetmetier.deleteClient(id);
+		model.addAttribute("clients", bankonetmetier.listClients());
+		model.addAttribute("client",new Client());
+		System.out.println("--------------------------------"+id+"---------------------------------------");
+		model.addAttribute("info", "le client dont l'id est : "+id+"est supprimé");
+		return "clientsview";
+	}
+	
 }

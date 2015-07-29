@@ -42,7 +42,7 @@ public class ClientDaoImpl implements IClientDao {
 	@Transactional(propagation=Propagation.MANDATORY)
 	public void addClient(Client c) {
 		// TODO Auto-generated method stub
-		System.out.println("client ajouté :"+c.toString());
+		System.out.println("client ajouté : "+c.toString());
 		em.persist(c);
 		
 	}
@@ -53,7 +53,7 @@ public class ClientDaoImpl implements IClientDao {
 	public List<Client> listClients() {
 		// TODO Auto-generated method stub
 		
-		Query req=em.createQuery("select c from Client c");
+		Query req=em.createQuery("select c from Client c order by c.id");
 		System.out.println("liste client : " + req.getResultList());
 		return req.getResultList();
 	}
