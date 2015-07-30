@@ -62,12 +62,7 @@
 
 	</bean>
 
-	<bean id="compte" class="com.bankonet.model.Compte" scope="prototype">
-		<property name="solde" value="1200"></property>
-		<property name="libelle" value="CC"></property>
-		<property name="identifiant" value="1"></property>
-
-	</bean>
+	<bean id="compte" class="com.bankonet.model.Compte" scope="prototype"></bean>
 	<bean id="compteepargne" class="com.bankonet.model.CompteEpargne" scope="prototype"></bean>
 	<bean id="comptecourant" class="com.bankonet.model.CompteCourant" scope="prototype"></bean>
 	
@@ -103,7 +98,7 @@
 		<property name="jpaPropertyMap">
 			<props>
 				<prop key="eclipselink.weaving">static</prop>
-				<prop key="eclipselink.ddl-generation">create-tables</prop>
+				<prop key="eclipselink.ddl-generation">create-or-extend-tables</prop>
 			</props>
 		</property>
 

@@ -42,6 +42,7 @@ public class BankonetController {
 	@RequestMapping(value="/", method = RequestMethod.GET)
 	public String index(Model model){
 		
+		
 		model.addAttribute("clients", bankonetmetier.listClients());
 		model.addAttribute("client",new Client());
 		model.addAttribute("info", "vide");

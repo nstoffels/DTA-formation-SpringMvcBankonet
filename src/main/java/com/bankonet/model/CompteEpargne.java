@@ -3,11 +3,14 @@ package com.bankonet.model;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import org.springframework.stereotype.Component;
+
 
 /**
  */
 @Entity
 @DiscriminatorValue("Ce")
+@Component("compteepargne")
 public class CompteEpargne extends Compte {
     private float tauxInteret;
 
