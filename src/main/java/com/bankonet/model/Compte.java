@@ -8,7 +8,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.TableGenerator;
 
 
 /**
@@ -17,16 +16,15 @@ import javax.persistence.TableGenerator;
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public abstract class Compte {
-	@TableGenerator(name="matable",allocationSize=1)
-	@Id @GeneratedValue(strategy=GenerationType.TABLE,generator="matable")
+
+	@Id @GeneratedValue(strategy=GenerationType.TABLE)
 	private int identifiant;
 	
 	private String libelle;
 	protected float solde;
 
-	
 	@ManyToOne
-	@JoinColumn(name = "clientId")
+	@JoinColumn(name = "client")
 	private Client client;
 	
 	
@@ -44,12 +42,32 @@ public abstract class Compte {
 
 	}
 	
+	/**
+	 * @param libelle
+	 * @param solde
+	 * @param client
+	 */
+	public Compte(String libelle, float solde, Client client) {
+		super();
+		this.libelle = libelle;
+		this.solde = solde;
+		this.client = client;
+	}
+	
+	
 	
 	public abstract boolean creditAutorise(float montant) throws BankonetException;
 
 
 	public abstract boolean debitAutorise(float montant) throws BankonetException;
 
+	
+	
+	/*
+	 * 
+	 * Getters et Setters
+	 * 
+	 */
 	public String getLibelle() {
 		return libelle;
 	}
@@ -65,4 +83,31 @@ public abstract class Compte {
 	public void setSolde(float newSolde) {
 		this.solde = newSolde;
 	}
+	/**
+	 * @return the client
+	 */
+	public Client getClient() {
+		return client;
+	}
+	/**
+	 * @param client the client to set
+	 */
+	public void setClient(Client client) {
+		this.client = client;
+	}
+	/**
+	 * @param identifiant the identifiant to set
+	 */
+	public void setIdentifiant(int identifiant) {
+		this.identifiant = identifiant;
+	}
+	/**
+	 * @param libelle the libelle to set
+	 */
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
+	}
+	
+	
+	
 }

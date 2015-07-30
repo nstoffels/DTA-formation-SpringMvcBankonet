@@ -12,6 +12,8 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -39,11 +41,12 @@ public class Client extends Personne {
 	@Size(min=5, max=50)
 	String motDePasse;
 	@OneToMany(fetch=FetchType.EAGER)
-	private List<CompteCourant> compteCourantList;
+	private List<CompteCourant> compteCourantList = new ArrayList<CompteCourant>();
 	@OneToMany(fetch=FetchType.EAGER)
-	private List<CompteEpargne> compteEpargneList;
+	private List<CompteEpargne> compteEpargneList = new ArrayList<CompteEpargne>();
 
-	@OneToMany(mappedBy="client")
+	@OneToMany(mappedBy="Client")
+	@JoinTable(name="banque2", joinColumns=@JoinColumn(name="id"))
 	private List<Compte> compteList;
 
 	@Autowired

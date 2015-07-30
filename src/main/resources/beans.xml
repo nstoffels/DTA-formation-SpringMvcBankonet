@@ -62,6 +62,12 @@
 
 	</bean>
 
+	<bean id="compte" class="com.bankonet.model.Compte" scope="prototype">
+		<property name="solde" value="1200"></property>
+		<property name="libelle" value="CC"></property>
+		<property name="identifiant" value="15"></property>
+
+	</bean>
 
 
 	<bean id="dataSource"
