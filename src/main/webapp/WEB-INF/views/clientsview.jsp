@@ -37,18 +37,15 @@
 							code="editerclient" /></a></td>
 				<td><a href="/BankonetSpringMVC/deleteclient/${cl.id}"><spring:message
 							code="supprimerclient" /></a></td>
-				<td><a href="/BankonetSpringMVC/comptes/comptescourantsliste/${cl.id}">Gérer
+				<td><a href="/BankonetSpringMVC/comptes/${cl.id}/comptescourantsliste">Gérer
 						les Comptes courants du client</a></td>
-				<td><a href="/BankonetSpringMVC/comptes/comptesepargnesliste/${cl.id}">Gérer
+				<td><a href="/BankonetSpringMVC/comptes/${cl.id}/comptesepargnesliste">Gérer
 						les Comptes épargnes du client</a></td>
 			</tr>
 
 		</c:forEach>
 	</table>
-	<td><a href="/BankonetSpringMVC/comptes/comptescourantsliste">Gérer
-			les Comptes courants</a></td>
-	<td><a href="/BankonetSpringMVC/comptes/comptesepargnesliste">Gérer
-			les Comptes épargnes</a></td>
+	
 	<p>
 		<spring:message code="${info}" />
 	</p>
@@ -97,26 +94,7 @@
 		</button>
 	</form:form>
 
-	<table border="1">
-		<tr>
-			<td><spring:message code="libelle" /></td>
-			<td><spring:message code="solde" /></td>
-			<td><spring:message code="client" /></td>
-		</tr>
-
-		<c:forEach items="${comptes}" var="com">
-			<tr>
-				<td>${com.libelle}</td>
-				<td>${com.solde}</td>
-				<td>${com.client}</td>
-				<td><a href="/BankonetSpringMVC/comptes/comptescourantsedit/${cl.id}">éditer
-						Comptes courants</a></td>
-				<td><a href="/BankonetSpringMVC/comptes/comptesepargnesdelete/${cl.id}">supprimer
-						Comptes courants</a></td>
-			</tr>
-
-		</c:forEach>
-	</table>
+	
 
 </body>
 </html>

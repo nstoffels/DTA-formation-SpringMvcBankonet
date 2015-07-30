@@ -25,8 +25,6 @@ public abstract class Compte {
 	private String libelle;
 	protected float solde;
 
-	@ManyToOne
-	@JoinColumn(name = "client")
 	private Client client;
 	
 	

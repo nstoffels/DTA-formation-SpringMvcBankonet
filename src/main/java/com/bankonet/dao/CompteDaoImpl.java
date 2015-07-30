@@ -84,7 +84,7 @@ public class CompteDaoImpl implements ICompteDao {
 	public List<Compte> listCompteclient(Client c) {  
 //
 		TypedQuery<Compte> selectQuery = em.createQuery("select compte FROM Compte as compte where compte.client = :x",Compte.class);  
-		selectQuery.setParameter("x", c.getNom());  
+		selectQuery.setParameter("x", c);  
 
 		return (List<Compte>)selectQuery.getResultList();  
 //		return null;

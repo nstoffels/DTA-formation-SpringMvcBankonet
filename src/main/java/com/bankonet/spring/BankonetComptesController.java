@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bankonet.metier.IBankonetMetier;
 import com.bankonet.metier.ICompteMetier;
+import com.bankonet.model.Client;
 import com.bankonet.model.CompteCourant;
 
 /**
@@ -47,26 +48,29 @@ public class BankonetComptesController {
 	 * Méthodes
 	 * 
 	 */
-	@RequestMapping(value="/comptescourantsliste", method = RequestMethod.GET)
-	public String index(Model model, @PathVariable("id") int id){
+	@RequestMapping(value="/{idcli}/comptescourantsliste", method = RequestMethod.GET)
+	public String index(Model model, @PathVariable("idcli") int idcli){
 		
-
-		model.addAttribute("compte", new CompteCourant());
-		model.addAttribute("comptes", comptemetier.listeCompte());
+		Client c=bankonetmetier.editClient(idcli);
+		model.addAttribute("client",bankonetmetier.editClient(idcli));
+		model.addAttribute("comptecourant", new CompteCourant());
+		model.addAttribute("comptes", comptemetier.listCompteclient(c));
 		
 		model.addAttribute("info", "vide");
 		
-		return "/comptescourantsliste";
+		return "comptesview";
 		
 	}
 	
-	@RequestMapping(value="/saveCompte", method = RequestMethod.POST)
-	public String saveClient(@Valid CompteCourant c, BindingResult bindingResult, Model  model) {
-
+	@RequestMapping(value="/{idcli}/saveCompte", method = RequestMethod.POST)
+	public String saveClient(@Valid CompteCourant c, @PathVariable("idcli") int idcli, BindingResult bindingResult, Model  model) {
+		
+		Client client=bankonetmetier.editClient(idcli);
+		
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("comptes",  comptemetier.listeCompte());
 			model.addAttribute("info", "vide");
-			model.addAttribute("clients", bankonetmetier.listClients());
+			model.addAttribute("client",new Client());
 			return  "clientsview"; 
 		}
 		
@@ -75,15 +79,18 @@ public class BankonetComptesController {
 		try{
 			if(c.getIdentifiant()!=0){
 				//update et edition du client.
+				c.setClient(client);
 				comptemetier.addCompte(c);
 				model.addAttribute("info", "editer");
 			}else{
-				comptemetier.updateCompte(c);
+				
+				comptemetier.addCompte(c);
+				c.setClient(client);
 				System.out.println("Compte sauvegardé");
 				model.addAttribute("info", "sauvegarde");
 			}
 			model.addAttribute("clients", bankonetmetier.listClients());
-			
+			model.addAttribute("client",bankonetmetier.editClient(idcli));
 			return  "clientsview";
 			
 		}catch(Exception e){
@@ -91,6 +98,7 @@ public class BankonetComptesController {
 			e.printStackTrace();
 		}
 		model.addAttribute("clients", bankonetmetier.listClients());
+		model.addAttribute("client",bankonetmetier.editClient(idcli));
 		return "clientsview";
 
 	

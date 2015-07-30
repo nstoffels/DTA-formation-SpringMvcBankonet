@@ -21,25 +21,26 @@
 		<tr>
 			<td><spring:message code="libelle" /></td>
 			<td><spring:message code="solde" /></td>
-			<td><spring:message code="client" /></td>
 		</tr>
 
 		<c:forEach items="${comptes}" var="com">
 			<tr>
 				<td>${com.libelle}</td>
 				<td>${com.solde}</td>
-				<td>${com.client}</td>
-				<td><a href="/BankonetSpringMVC/comptes/comptescourantsedit/${cl.id}">éditer
+
+				<td><a href="/BankonetSpringMVC/comptes/${cl.id}/comptescourantsedit">éditer
 						Comptes courants</a></td>
-				<td><a href="/BankonetSpringMVC/comptes/comptesepargnesdelete/${cl.id}">supprimer
+				<td><a href="/BankonetSpringMVC/comptes/${cl.id}/comptesepargnesdelete">supprimer
 						Comptes courants</a></td>
 			</tr>
-
 		</c:forEach>
 	</table>
 
-	<form:form modelAttribute="comptecourant" action="/BankonetSpringMVC/comptes/saveCompte">
+	<form:form modelAttribute="comptecourant" action="/BankonetSpringMVC/comptes/${cl.id}/saveCompte">
 		<table>
+			
+			
+			
 			<tr>
 				<td><form:label path="libelle">
 						<spring:message code="libelle" /> :</form:label></td>
@@ -52,12 +53,7 @@
 				<td><form:input path="solde" /></td>
 				<td><form:errors path="solde" /></td>
 			</tr>
-			<tr>
-				<td><form:label path="client">
-						<spring:message code="client" /> :</form:label></td>
-				<td><form:input path="client" /></td>
-				<td><form:errors path="client" /></td>
-			</tr>
+			
 		</table>
 		<button value="submit">
 			<spring:message code="valider" />

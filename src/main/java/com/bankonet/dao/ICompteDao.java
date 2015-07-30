@@ -20,5 +20,6 @@ public interface ICompteDao {
 	public void updateCompte(Compte c);
 	public List<Compte> listeCompte();
 	public List<Compte> listCompteclient(Client c);
+	
 
 }

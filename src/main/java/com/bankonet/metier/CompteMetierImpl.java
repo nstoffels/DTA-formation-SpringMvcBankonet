@@ -8,10 +8,13 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bankonet.dao.ICompteDao;
 import com.bankonet.model.Client;
 import com.bankonet.model.Compte;
+import com.bankonet.model.CompteCourant;
 
 /**
  * @author ETY
@@ -54,9 +57,10 @@ public class CompteMetierImpl implements ICompteMetier {
 	/* (non-Javadoc)
 	 * @see com.bankonet.metier.ICompteMetier#addCompte(com.bankonet.model.Compte)
 	 */
-	@Override
+	@Transactional(propagation=Propagation.REQUIRED, timeout=10)
 	public void addCompte(Compte c) {
 		// TODO Auto-generated method stub
+		
 		comptedao.addCompte(c);
 
 	}
@@ -64,9 +68,10 @@ public class CompteMetierImpl implements ICompteMetier {
 	/* (non-Javadoc)
 	 * @see com.bankonet.metier.ICompteMetier#deleteCompte(int)
 	 */
-	@Override
+	@Transactional(propagation=Propagation.REQUIRED, timeout=10)
 	public void deleteCompte(int idCompte) {
 		// TODO Auto-generated method stub
+		//Compte cc = comptedao.editCompte(idCompte);
 		comptedao.deleteCompte(idCompte);
 
 	}
@@ -74,20 +79,21 @@ public class CompteMetierImpl implements ICompteMetier {
 	/* (non-Javadoc)
 	 * @see com.bankonet.metier.ICompteMetier#listeCompte()
 	 */
-	@Override
+	@Transactional(readOnly=true)
 	public List<Compte> listeCompte() {
 		// TODO Auto-generated method stub
 		return comptedao.listeCompte();
 	}
 		
-	@Override
+	@Transactional(propagation=Propagation.REQUIRED, timeout=10)
 	public List<Compte> listCompteclient(Client c) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		return comptedao.listCompteclient(c);
 	}
 	
 	
-	@Override
+	@Transactional(propagation=Propagation.REQUIRED, timeout=10)
 	public Compte editCompte(int idClompte) {
 		// TODO Auto-generated method stub
 		return comptedao.editCompte(idClompte);
@@ -95,7 +101,7 @@ public class CompteMetierImpl implements ICompteMetier {
 
 
 
-	@Override
+	@Transactional(propagation=Propagation.REQUIRED, timeout=10)
 	public void updateCompte(Compte c) {
 		// TODO Auto-generated method stub
 		comptedao.updateCompte(c);
