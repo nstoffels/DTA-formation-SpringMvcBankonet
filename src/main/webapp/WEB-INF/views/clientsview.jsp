@@ -40,7 +40,7 @@
 			
 		</c:forEach>
 	</table>
-	<p> ${info} </p>
+	<p>  <spring:message code="${info}"/></p>
 
 	<h2><spring:message code="formulaire"/></h2>
 	<form:form modelAttribute="client" action="/BankonetSpringMVC/saveClient">

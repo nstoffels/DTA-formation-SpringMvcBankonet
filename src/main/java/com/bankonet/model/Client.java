@@ -9,7 +9,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -24,8 +26,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 @DiscriminatorValue("C")
 public class Client extends Personne {
 
-	
-	
+
+
 
 	/**
 	 * 
@@ -36,12 +38,16 @@ public class Client extends Personne {
 	@NotNull
 	@Size(min=5, max=50)
 	String motDePasse;
-	@OneToMany
+	@OneToMany(fetch=FetchType.EAGER)
 	private List<CompteCourant> compteCourantList;
-	@OneToMany
+	@OneToMany(fetch=FetchType.EAGER)
 	private List<CompteEpargne> compteEpargneList;
 
+	@OneToMany(mappedBy="client")
+	private List<Compte> compteList;
+
 	@Autowired
+	@Embedded
 	private Adresse adresse;
 
 	/*
@@ -69,11 +75,11 @@ public class Client extends Personne {
 		this.adresse=adresse;
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public Client(int id){
 		super(id);
 	}
-	
+
 	/**
 	 * @param adresse
 	 */
@@ -81,8 +87,8 @@ public class Client extends Personne {
 		super();
 		this.adresse = adresse;
 	}
-	
-	
+
+
 
 	/*
 	 * Méthodes
@@ -95,14 +101,21 @@ public class Client extends Personne {
 		// TODO Auto-generated method stub
 		return "id : "+this.getId() + " ; " +" nom : "+this.getNom()+" ; "+ " Prenom : "+ this.getPrenom()+" ; "+" adresse : "+this.getAdresse()+" ; "+" a comme login :" + this.getLogin() ;
 	}
-	
+
+
+	/*
+	 * 
+	 * getters et setters
+	 * 
+	 */
+
 	/**
 	 * Retourne la liste des comptes courants du client (de taille 0 si pas de comptes courants).
 	 * 
 	 *
 	 * @return List
 	 */
-	
+
 	public List<CompteCourant> getComptesCourants() {
 		return Collections.unmodifiableList(compteCourantList);
 	}
@@ -115,101 +128,96 @@ public class Client extends Personne {
 	public List<CompteEpargne> getComptesEpargne() {
 		return Collections.unmodifiableList(compteEpargneList);
 	}
-	
+
 	public List<Compte> getComptes() {
-	    List<Compte> compteList = new ArrayList<Compte>();
-	    compteList.addAll(compteCourantList);
-	    compteList.addAll(compteEpargneList);
-	    return Collections.unmodifiableList(compteList);
+		List<Compte> compteList = new ArrayList<Compte>();
+		compteList.addAll(compteCourantList);
+		compteList.addAll(compteEpargneList);
+		return Collections.unmodifiableList(compteList);
 
 	}
 
 	public Compte getCompte(int compteId) {
-	    List<Compte> compteList = this.getComptes();
-	    Iterator<Compte> compteIte = compteList.iterator();
-	    while (compteIte.hasNext()) {
-            Compte compte = compteIte.next();
-            if (compteId == compte.getIdentifiant())
-                return compte;
-        }
-	    return null; 
+		List<Compte> compteList = this.getComptes();
+		Iterator<Compte> compteIte = compteList.iterator();
+		while (compteIte.hasNext()) {
+			Compte compte = compteIte.next();
+			if (compteId == compte.getIdentifiant())
+				return compte;
+		}
+		return null; 
 	}
 
-	/*
-	 * 
-	 * Génération des getters/setters
-	 * 
-	 */
-	
+
 	/**
 	 * @return the adresse
 	 */
-	public Adresse getAdresse() {
-		return adresse;
-	}
+	 public Adresse getAdresse() {
+		 return adresse;
+	 }
 
-	/**
-	 * @param adresse the adresse to set
-	 */
-	public void setAdresse(Adresse adresse) {
-		this.adresse = adresse;
-	}
+	 /**
+	  * @param adresse the adresse to set
+	  */
+	 public void setAdresse(Adresse adresse) {
+		 this.adresse = adresse;
+	 }
 
-	/**
-	 * @return the login
-	 */
-	public String getLogin() {
-		return login;
-	}
+	 /**
+	  * @return the login
+	  */
+	 public String getLogin() {
+		 return login;
+	 }
 
-	/**
-	 * @param login the login to set
-	 */
-	public void setLogin(String login) {
-		this.login = login;
-	}
+	 /**
+	  * @param login the login to set
+	  */
+	 public void setLogin(String login) {
+		 this.login = login;
+	 }
 
-	/**
-	 * @return the motDePasse
-	 */
-	public String getMotDePasse() {
-		return motDePasse;
-	}
+	 /**
+	  * @return the motDePasse
+	  */
+	 public String getMotDePasse() {
+		 return motDePasse;
+	 }
 
-	/**
-	 * @param motDePasse the motDePasse to set
-	 */
-	public void setMotDePasse(String motDePasse) {
-		this.motDePasse = motDePasse;
-	}
+	 /**
+	  * @param motDePasse the motDePasse to set
+	  */
+	 public void setMotDePasse(String motDePasse) {
+		 this.motDePasse = motDePasse;
+	 }
 
-	/**
-	 * @return the compteCourantList
-	 */
-	public List<CompteCourant> getCompteCourantList() {
-		return compteCourantList;
-	}
+	 /**
+	  * @return the compteCourantList
+	  */
+	 public List<CompteCourant> getCompteCourantList() {
+		 return compteCourantList;
+	 }
 
-	/**
-	 * @param compteCourantList the compteCourantList to set
-	 */
-	public void setCompteCourantList(List<CompteCourant> compteCourantList) {
-		this.compteCourantList = compteCourantList;
-	}
+	 /**
+	  * @param compteCourantList the compteCourantList to set
+	  */
+	 public void setCompteCourantList(List<CompteCourant> compteCourantList) {
+		 this.compteCourantList = compteCourantList;
+	 }
 
-	/**
-	 * @return the compteEpargneList
-	 */
-	public List<CompteEpargne> getCompteEpargneList() {
-		return compteEpargneList;
-	}
+	 /**
+	  * @return the compteEpargneList
+	  */
+	 public List<CompteEpargne> getCompteEpargneList() {
+		 return compteEpargneList;
+	 }
 
-	/**
-	 * @param compteEpargneList the compteEpargneList to set
-	 */
-	public void setCompteEpargneList(List<CompteEpargne> compteEpargneList) {
-		this.compteEpargneList = compteEpargneList;
-	}
-	
-	
+	 /**
+	  * @param compteEpargneList the compteEpargneList to set
+	  */
+	 public void setCompteEpargneList(List<CompteEpargne> compteEpargneList) {
+		 this.compteEpargneList = compteEpargneList;
+	 }
+
+
 }

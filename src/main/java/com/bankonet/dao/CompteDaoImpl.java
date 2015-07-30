@@ -67,24 +67,6 @@ public class CompteDaoImpl implements ICompteDao {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.bankonet.dao.ICompteDao#crediterCompte(float)
-	 */
-	@Transactional(propagation=Propagation.MANDATORY)
-	public void crediterCompte(float solde) {
-		// TODO Auto-generated method stub
-		em.merge(solde);
-	}
-
-	/* (non-Javadoc)
-	 * @see com.bankonet.dao.ICompteDao#debiterCompte(float)
-	 */
-	@Transactional(propagation=Propagation.MANDATORY)
-	public void debiterCompte(float solde) {
-		// TODO Auto-generated method stub
-		em.merge(solde);
-	}
-
-	/* (non-Javadoc)
 	 * @see com.bankonet.dao.ICompteDao#listeCompte()
 	 */
 	@Transactional(propagation=Propagation.MANDATORY)
@@ -100,13 +82,35 @@ public class CompteDaoImpl implements ICompteDao {
 	 */
 	@Transactional(propagation=Propagation.MANDATORY)
 	public List<Compte> listCompteclient(Client c) {  
-
-		TypedQuery<Compte> selectQuery = em.createQuery("select compte FROM Compte as compte where compte.clientcompte = :x",Compte.class);  
-		selectQuery.setParameter("x", c.getId());  
-
-		return (List<Compte>)selectQuery.getResultList();  
+//
+//		TypedQuery<Compte> selectQuery = em.createQuery("select compte FROM Compte as compte where compte.clientcompte = :x",Compte.class);  
+//		selectQuery.setParameter("x", c.getId());  
+//
+//		return (List<Compte>)selectQuery.getResultList();  
+		return null;
+		
 	}  
 
+	@Override
+	public Compte editCompte(int idCompte) {
+		// TODO Auto-generated method stub
+		Compte compte = em.find(Compte.class, idCompte);
+		return compte;
+	}
+
+
+	@Override
+	public void updateCompte(Compte c) {
+		// TODO Auto-generated method stub
+		Compte compte = em.find(Compte.class, c.getIdentifiant());
+		if(compte!=null){
+					
+			em.merge(c);
+		
+		}else {
+			System.out.println("Compte inexistant");
+		}
+	}
 
 	/*
 	 * 
@@ -127,6 +131,9 @@ public class CompteDaoImpl implements ICompteDao {
 	public void setEm(EntityManager em) {
 		this.em = em;
 	}
+
+
+	
 
 
 

@@ -44,6 +44,7 @@ public class BankonetController {
 		
 		model.addAttribute("clients", bankonetmetier.listClients());
 		model.addAttribute("client",new Client());
+		model.addAttribute("info", "vide");
 		
 		return "clientsview";
 		
@@ -61,6 +62,7 @@ public class BankonetController {
 
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("clients",  bankonetmetier.listClients());
+			model.addAttribute("info", "vide");
 			return  "clientsview"; 
 		}
 		
@@ -70,11 +72,11 @@ public class BankonetController {
 			if(c.getId()!=0){
 				//update et edition du client.
 				bankonetmetier.updateClient(c);
-				model.addAttribute("info", "c'est édité"+c.getId());
+				model.addAttribute("info", "editer");
 			}else{
 				bankonetmetier.addClient(c);
 				System.out.println("Client sauvegardé");
-				model.addAttribute("info", "c'est ajouté : "+c.getId());
+				model.addAttribute("info", "sauvegarde");
 			}
 			
 		}catch(Exception e){
@@ -99,6 +101,7 @@ public class BankonetController {
 		model.addAttribute("client",bankonetmetier.editClient(id));
 		model.addAttribute("clients", bankonetmetier.listClients());
 		System.out.println("////////////////////////////////////////"+id+"///////////////////////////////////");
+		model.addAttribute("info", "vide");
 		return "clientsview";
 		
 	}
@@ -110,7 +113,7 @@ public class BankonetController {
 		model.addAttribute("clients", bankonetmetier.listClients());
 		model.addAttribute("client",new Client());
 		System.out.println("--------------------------------"+id+"---------------------------------------");
-		model.addAttribute("info", "le client dont l'id est : "+id+"est supprimé");
+		model.addAttribute("info", "supprimer");
 		return "clientsview";
 	}
 	

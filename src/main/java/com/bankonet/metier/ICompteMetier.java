@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.bankonet.dao;
+package com.bankonet.metier;
 
 import java.util.List;
 
@@ -12,8 +12,9 @@ import com.bankonet.model.Compte;
  * @author ETY
  *
  */
-public interface ICompteDao {
-	
+public interface ICompteMetier {
+
+	public void virement (float solde, int idCompte);
 	public void addCompte(Compte c);
 	public void deleteCompte(int idCompte);
 	public Compte editCompte(int idClompte);

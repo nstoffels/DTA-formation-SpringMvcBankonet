@@ -2,9 +2,13 @@ package com.bankonet.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.TableGenerator;
 
 
 /**
@@ -13,13 +17,19 @@ import javax.persistence.InheritanceType;
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public abstract class Compte {
-	@Id
-	@GeneratedValue
+	@TableGenerator(name="matable",allocationSize=1)
+	@Id @GeneratedValue(strategy=GenerationType.TABLE,generator="matable")
 	private int identifiant;
 	
 	private String libelle;
 	protected float solde;
 
+	
+	@ManyToOne
+	@JoinColumn(name = "clientId")
+	private Client client;
+	
+	
 	/**
 	 * Constructeur standard.
 	 */
