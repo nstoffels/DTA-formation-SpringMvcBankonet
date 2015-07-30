@@ -6,6 +6,7 @@ package com.bankonet.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -14,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.eclipse.persistence.annotations.PrivateOwned;
+import org.eclipse.persistence.jpa.config.Cascade;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -36,9 +39,12 @@ public class Client extends Personne {
 	@NotNull
 	@Size(min=5, max=50)
 	String motDePasse;
-	@OneToMany(fetch=FetchType.EAGER,mappedBy="client")
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER,mappedBy="client")
+	@PrivateOwned
 	private List<CompteCourant> compteCourantList = new ArrayList<CompteCourant>();
-	@OneToMany(fetch=FetchType.EAGER,mappedBy="client")
+	
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER,mappedBy="client")
+	@PrivateOwned
 	private List<CompteEpargne> compteEpargneList = new ArrayList<CompteEpargne>();
 
 
