@@ -78,6 +78,8 @@ public class BankonetController {
 				System.out.println("Client sauvegardé");
 				model.addAttribute("info", "sauvegarde");
 			}
+			model.addAttribute("clients", bankonetmetier.listClients());
+			return  "clientsview";
 			
 		}catch(Exception e){
 			System.out.println("Sauvegarde impossible.");

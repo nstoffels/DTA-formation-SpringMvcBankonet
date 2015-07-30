@@ -23,9 +23,9 @@ public class Personne {
 
 
 	@Size(min=3, max=60)
-	String nom ;
+	public String nom ;
 	@Size(min=3, max=60)
-	String prenom;
+	public String prenom;
 	/**
 	 * 
 	 */

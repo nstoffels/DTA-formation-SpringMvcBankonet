@@ -72,7 +72,7 @@ public class CompteDaoImpl implements ICompteDao {
 	@Transactional(propagation=Propagation.MANDATORY)
 	public List<Compte> listeCompte() {
 		// TODO Auto-generated method stub
-		Query req=em.createQuery("select c from Compte c order by c.identifiant");
+		Query req=em.createQuery("select c from Compte as c");
 		System.out.println("liste compte : " + req.getResultList());
 		return req.getResultList();
 	}
@@ -83,8 +83,8 @@ public class CompteDaoImpl implements ICompteDao {
 	@Transactional(propagation=Propagation.MANDATORY)
 	public List<Compte> listCompteclient(Client c) {  
 //
-		TypedQuery<Compte> selectQuery = em.createQuery("select compte FROM Compte as compte where compte.clientcompte = :x",Compte.class);  
-		selectQuery.setParameter("x", c.getId());  
+		TypedQuery<Compte> selectQuery = em.createQuery("select compte FROM Compte as compte where compte.client = :x",Compte.class);  
+		selectQuery.setParameter("x", c.getNom());  
 
 		return (List<Compte>)selectQuery.getResultList();  
 //		return null;

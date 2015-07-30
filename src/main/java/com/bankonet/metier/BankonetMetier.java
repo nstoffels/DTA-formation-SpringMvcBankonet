@@ -18,7 +18,6 @@ import com.bankonet.model.Client;
  * @author Admin Stoffels
  *
  */
-@SuppressWarnings("restriction")
 @Service("bankonetmetier") 
 public class BankonetMetier implements IBankonetMetier {
 

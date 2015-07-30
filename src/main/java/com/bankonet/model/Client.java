@@ -4,16 +4,12 @@
 package com.bankonet.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -40,14 +36,11 @@ public class Client extends Personne {
 	@NotNull
 	@Size(min=5, max=50)
 	String motDePasse;
-	@OneToMany(fetch=FetchType.EAGER)
+	@OneToMany(fetch=FetchType.EAGER,mappedBy="client")
 	private List<CompteCourant> compteCourantList = new ArrayList<CompteCourant>();
-	@OneToMany(fetch=FetchType.EAGER)
+	@OneToMany(fetch=FetchType.EAGER,mappedBy="client")
 	private List<CompteEpargne> compteEpargneList = new ArrayList<CompteEpargne>();
 
-	@OneToMany(mappedBy="Client")
-	@JoinTable(name="banque2", joinColumns=@JoinColumn(name="id"))
-	private List<Compte> compteList;
 
 	@Autowired
 	@Embedded
@@ -112,44 +105,7 @@ public class Client extends Personne {
 	 * 
 	 */
 
-	/**
-	 * Retourne la liste des comptes courants du client (de taille 0 si pas de comptes courants).
-	 * 
-	 *
-	 * @return List
-	 */
-
-	public List<CompteCourant> getComptesCourants() {
-		return Collections.unmodifiableList(compteCourantList);
-	}
-	/**
-	 * Retourne la liste des comptes d'epargne du client sous forme d'une ArrayList (de taille 0 si pas de compte epargne).
-	 * 
-	 * @return List
-	 */
-
-	public List<CompteEpargne> getComptesEpargne() {
-		return Collections.unmodifiableList(compteEpargneList);
-	}
-
-	public List<Compte> getComptes() {
-		List<Compte> compteList = new ArrayList<Compte>();
-		compteList.addAll(compteCourantList);
-		compteList.addAll(compteEpargneList);
-		return Collections.unmodifiableList(compteList);
-
-	}
-
-	public Compte getCompte(int compteId) {
-		List<Compte> compteList = this.getComptes();
-		Iterator<Compte> compteIte = compteList.iterator();
-		while (compteIte.hasNext()) {
-			Compte compte = compteIte.next();
-			if (compteId == compte.getIdentifiant())
-				return compte;
-		}
-		return null; 
-	}
+	
 
 
 	/**

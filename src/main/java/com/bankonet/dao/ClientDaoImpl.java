@@ -54,6 +54,7 @@ public class ClientDaoImpl implements IClientDao {
 		Query req=em.createQuery("select c from Client c order by c.id");
 		System.out.println("liste client : " + req.getResultList());
 		return req.getResultList();
+		
 	}
 
 	/* (non-Javadoc)
